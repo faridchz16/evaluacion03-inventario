@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- POM agregador: solo sirve para abrir/compilar los 3 microservicios juntos.
+     Cada microservicio sigue siendo un proyecto Maven independiente. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.almacen</groupId>
+    <artifactId>lab07-inventario</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>lab07-inventario</name>
+
+    <modules>
+        <module>ms-producto</module>
+        <module>ms-proveedor</module>
+        <module>ms-movimiento</module>
+    </modules>
+</project>
