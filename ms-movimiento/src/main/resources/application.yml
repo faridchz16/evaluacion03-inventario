@@ -1,0 +1,68 @@
+# =====================================================================
+# ms-movimiento - configuracion comun a todos los perfiles
+# =====================================================================
+server:
+  port: 8083
+
+spring:
+  application:
+    name: ms-movimiento
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}   # perfil por defecto: dev
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  jackson:
+    time-zone: America/Lima
+    date-format: yyyy-MM-dd
+
+---
+# =====================================================================
+# PERFIL DEV - desarrollo local con XAMPP
+# =====================================================================
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/bd_movimiento?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=America/Lima&allowPublicKeyRetrieval=true
+    username: root
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update        # crea/actualiza tablas automaticamente
+    show-sql: true            # muestra el SQL generado en consola
+
+logging:
+  level:
+    com.almacen: DEBUG
+
+---
+# =====================================================================
+# PERFIL PROD - produccion (credenciales por variables de entorno)
+# =====================================================================
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/bd_movimiento?useSSL=true&serverTimezone=America/Lima}
+    username: ${DB_USER:app_user}
+    password: ${DB_PASSWORD:}
+    hikari:
+      maximum-pool-size: 20
+  jpa:
+    hibernate:
+      ddl-auto: validate      # NO modifica el esquema, solo lo valida
+    show-sql: false
+
+server:
+  error:
+    include-stacktrace: never
+
+logging:
+  level:
+    root: WARN
+    com.almacen: INFO
